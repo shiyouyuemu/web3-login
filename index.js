@@ -1,5 +1,1 @@
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./dist/index.min.js');
-} else {
-  module.exports = require('./dist/index.js')
-}
+export default require('./dist/index.min.js');

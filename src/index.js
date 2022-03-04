@@ -1,23 +1,23 @@
 const ethers = require("ethers")
 //是否安装钱包
-export function hasEthereum () {
+function hasEthereum () {
   return typeof window !== 'undefined' && typeof window.ethereum !== 'undefined'
 }
 
 //调起钱包授权
-export async function requestAccount() {
+async function requestAccount() {
   await window.ethereum.request({method: 'eth_requestAccounts'})
 }
 
 //钱包账户监控
-export function useWalletWatch(logOut, userAddress, isLogin) {
+function useWalletWatch(logOut, userAddress, isLogin) {
   if (!hasEthereum()) return;
   //监控钱包账户
   window.ethereum?.on("accountsChanged", async function (accounts) {
     if (accounts && accounts[0]) {
       console.log(accounts);
       //切换账户
-      if(userAddress && userAddress !== accounts[0]){
+      if(userAddress && userAddress.toUpperCase() !== accounts[0].toUpperCase()){
         //取消登录状态，重新登录
         logOut();
       }
@@ -42,7 +42,7 @@ export function useWalletWatch(logOut, userAddress, isLogin) {
 }
 
 //调起钱包签名
-export function signatureLogin(address, message, callback) {
+function signatureLogin(address, message, callback) {
   var from = address;
   var params = [message, from];
   var method = 'personal_sign';
@@ -64,7 +64,7 @@ export function signatureLogin(address, message, callback) {
 }
 
 //获取当前钱包信息（链ID和addresss）
-export async function getWalletData() {
+async function getWalletData() {
   try{
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const chainId = provider.provider.chainId;
@@ -84,7 +84,7 @@ export async function getWalletData() {
 }
 
 //登录并签名授权
-export async function web3Login(options) {
+async function web3Login(options) {
   //没有钱包时处理
   if(!hasEthereum()){
     options.onErrorWithEthereum && options.onErrorWithEthereum();
@@ -100,4 +100,13 @@ export async function web3Login(options) {
   }catch(err) {
     console.log(err);
   }
+}
+
+export default {
+  hasEthereum,
+  requestAccount,
+  useWalletWatch,
+  signatureLogin,
+  getWalletData,
+  web3Login
 }
