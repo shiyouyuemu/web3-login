@@ -54,7 +54,7 @@
       
     },//可选参数
     //异步返回 需要签名的信息
-    getMessage: () => {
+    getMessage: (address) => {
       return new Promise(() => {
         
       });

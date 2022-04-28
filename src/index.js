@@ -94,7 +94,7 @@ async function web3Login(options) {
     await requestAccount();
     let { address } = await getWalletData();
     if(address){
-      let message = await options.getMessage();
+      let message = await options.getMessage(address);
       await signatureLogin(address, message, options.onSuccessLogin)
     }
   }catch(err) {
