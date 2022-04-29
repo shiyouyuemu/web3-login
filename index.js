@@ -1,1 +1,0 @@
-export default require('./dist/index.min.js');

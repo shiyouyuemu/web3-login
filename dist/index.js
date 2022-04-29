@@ -152,7 +152,7 @@ function useWalletWatch(logOut, userAddress, isLogin) {
               if (accounts && accounts[0]) {
                 console.log(accounts); //切换账户
 
-                if (userAddress && userAddress !== accounts[0]) {
+                if (userAddress && userAddress.toUpperCase() !== accounts[0].toUpperCase()) {
                   //取消登录状态，重新登录
                   logOut();
                 }
@@ -296,7 +296,7 @@ function _web3Login() {
             }
 
             _context4.next = 13;
-            return options.getMessage();
+            return options.getMessage(address);
 
           case 13:
             message = _context4.sent;
